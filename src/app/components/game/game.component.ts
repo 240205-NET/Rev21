@@ -14,4 +14,21 @@ export class GameComponent {
   player: Player = new Player();
   dealer: Dealer = new Dealer();
   game: Game = new Game(this.deck, this.dealer, this.player);
+
+  startNewGame() {
+    this.game.active = true;
+    this.game.deck.shuffle();
+    this.player.hand.dealTwo(this.game.deck);
+    this.dealer.hand.dealTwo(this.game.deck);
+    this.player.hand.calculateScore();
+    this.dealer.hand.calculateScore();
+  }
+
+  handlePlayerHit() {}
+
+  handlePlayerStand() {}
+
+  resetGameVariables() {
+    //todo
+  }
 }

@@ -6,6 +6,7 @@ export class Game {
   constructor(
     public deck: Deck,
     public dealer: Dealer,
-    public player: Player
+    public player: Player,
+    public active: boolean = false
   ) {}
 }
