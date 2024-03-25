@@ -1,41 +1,37 @@
-<div class="container container--main">
-  <section class="section section--main">
+<main class="container">
+  <section class="section">
     <h1>Rev21</h1>
-    <button [disabled]="game.active" (click)="startNewGame()">New Game</button>
-  </section>
-  <section class="section section--game">
-    <!-- Dealer's Hand:-->
-    <div class="section--game__dealer">
-      <h2>Dealer's hand:</h2>
-      <div *ngFor="let card of this.dealer.hand.cards">
-        {{ card.rank }} of {{ card.suit }}
-      </div>
-    </div>
-    <!-- Player's Hand:-->
-    <h2>Player's Hand:</h2>
-    <div class="section--game__player">
-      <!-- Player's Score -->
-      <div class="section--game__player-score">
-        {{ this.player.hand.score }}
-      </div>
-      <!-- Player's Cards -->
-      <div class="section--game__player-cards">
-        <div
-          *ngFor="let card of this.player.hand.cards"
-          class="section--game__player-card"
+    <dialog #myDialog>
+      <form method="dialog">
+        <button
+          [disabled]="game.active"
+          (click)="startNewGame()"
+          (click)="closeDialog()"
+          class="btn btn-tertiary"
         >
-          <img
-            [src]="
-              'assets/cards/png/' +
-              card.rank.toLowerCase() +
-              '_of_' +
-              card.suit.toLowerCase() +
-              '.png'
-            "
-            [alt]="'Playing card for ' + card.rank + '_of_' + card.suit"
-          />
-        </div>
-      </div>
-    </div>
+          New Game
+        </button>
+      </form>
+    </dialog>
   </section>
-</div>
+  <section class="section">
+    <!-- Dealer's Hand:-->
+
+    <app-cards [cards]="this.dealer.hand.cards"></app-cards>
+
+    <!-- Player's Hand:-->
+    <!-- Player's Score -->
+    <div class="section--game__player-score">
+      {{ this.player.hand.score }}
+    </div>
+
+    <!-- Player's Cards -->
+    <div class="player-controls">
+      <button class="btn btn-primary" (click)="handlePlayerHit()">Hit</button>
+      <button class="btn btn-secondary" (click)="handlePlayerStand()">
+        Stand
+      </button>
+    </div>
+    <app-cards [cards]="this.player.hand.cards"></app-cards>
+  </section>
+</main>

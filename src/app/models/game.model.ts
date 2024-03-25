@@ -7,6 +7,7 @@ export class Game {
     public deck: Deck,
     public dealer: Dealer,
     public player: Player,
-    public active: boolean = false
+    public active: boolean = false,
+    public gameOverMessage: string = ''
   ) {}
 }

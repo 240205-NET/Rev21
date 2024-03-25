@@ -1,0 +1,12 @@
+<div class="card">
+  <img
+    [src]="
+      'assets/cards/svg-cards/' +
+      card.rank.toLowerCase() +
+      '_of_' +
+      card.suit.toLowerCase() +
+      '.svg'
+    "
+    [alt]="'Playing card for ' + card.rank + '_of_' + card.suit"
+  />
+</div>
