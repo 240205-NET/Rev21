@@ -35,4 +35,8 @@ export class Hand {
     }
     this.score = newScore;
   }
+
+  clear() {
+    this.cards = [];
+  }
 }

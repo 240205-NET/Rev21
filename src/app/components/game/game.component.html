@@ -1,37 +1,57 @@
-<main class="container">
-  <section class="section">
-    <h1>Rev21</h1>
-    <dialog #myDialog>
-      <form method="dialog">
+<app-modal
+  (gameActiveEvent)="startNewGame()"
+  [gameActive]="this.game.active"
+  [gameOver]="this.game.over"
+  [gameOverMessage]="this.game.gameOverMessage"
+></app-modal>
+<main
+  *ngIf="this.game.active || this.game.over"
+  class="container mx-auto bg-green-900 rounded-xl"
+>
+  <div class="flex mx-auto items-center justify-center">
+    <section
+      class="grid grid-cols-auto grid-rows-auto items-center justify-center"
+    >
+      <!-- Dealer's Side -->
+      <div class="mb-2 col-span-2 col-start-1 row-start-1 row-span-1">
+        <app-cards [cards]="this.dealer.hand.cards"></app-cards>
+      </div>
+      <!-- Scores - Wrapped in a flex container for independent sizing -->
+      <div
+        class="flex flex-col col-span-2 col-start-1 row-start-2 row-span-1 gap-2"
+      >
+        <!-- Scores content here -->
+        <app-score
+          *ngIf="this.dealer.hand.score !== undefined"
+          [score]="this.dealer.hand.score"
+        ></app-score>
+        <app-score
+          *ngIf="this.player.hand.score !== undefined"
+          [score]="this.player.hand.score"
+        ></app-score>
+      </div>
+      <!-- Player's Cards -->
+      <div class="mt-2 col-start-1 col-span-2 row-start-3 row-span-1">
+        <app-cards [cards]="this.player.hand.cards"></app-cards>
+      </div>
+      <!-- Player Controls -->
+      <div
+        class="col-start-1 col-span-2 row-start-4 row-span-1 flex flex-row align-center justify-center gap-2 mt-4"
+      >
         <button
-          [disabled]="game.active"
-          (click)="startNewGame()"
-          (click)="closeDialog()"
-          class="btn btn-tertiary"
+          (click)="handlePlayerHit()"
+          class="py-8 self-center text-white px-16 w-[min(100%,219px)] bg-red-600 rounded-lg hover:bg-red-500"
         >
-          New Game
+          Stand
         </button>
-      </form>
-    </dialog>
-  </section>
-  <section class="section">
-    <!-- Dealer's Hand:-->
-
-    <app-cards [cards]="this.dealer.hand.cards"></app-cards>
-
-    <!-- Player's Hand:-->
-    <!-- Player's Score -->
-    <div class="section--game__player-score">
-      {{ this.player.hand.score }}
-    </div>
-
-    <!-- Player's Cards -->
-    <div class="player-controls">
-      <button class="btn btn-primary" (click)="handlePlayerHit()">Hit</button>
-      <button class="btn btn-secondary" (click)="handlePlayerStand()">
-        Stand
-      </button>
-    </div>
-    <app-cards [cards]="this.player.hand.cards"></app-cards>
-  </section>
+        <!-- <button (click)="handlePlayerStand()">Stand</button> -->
+        <button
+          (click)="handlePlayerHit()"
+          class="py-8 self-center text-white px-16 w-[min(100%,219px)] bg-red-600 rounded-lg hover:bg-red-500"
+        >
+          Stand
+        </button>
+      </div>
+    </section>
+  </div>
 </main>

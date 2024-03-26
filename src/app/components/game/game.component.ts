@@ -9,41 +9,16 @@ import { Player } from 'src/app/models/player.model';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
-export class GameComponent implements AfterViewInit {
+export class GameComponent {
   deck: Deck = new Deck();
   player: Player = new Player();
   dealer: Dealer = new Dealer();
   game: Game = new Game(this.deck, this.dealer, this.player);
-  @ViewChild('myDialog') myDialog!: ElementRef<HTMLDialogElement>;
 
-  ngAfterViewInit() {
-    this.openDialog();
-  }
-
-  openDialog() {
-    this.myDialog.nativeElement.showModal();
-    requestAnimationFrame(() => {
-      this.myDialog.nativeElement.style.opacity = '1'; // Trigger the transition
-    });
-  }
-
-  closeDialog() {
-    const dialog = this.myDialog.nativeElement;
-    dialog.style.opacity = '0'; // Fade out before closing
-    dialog.addEventListener(
-      'transitionend',
-      function handler() {
-        dialog.close();
-        dialog.removeEventListener('transitionend', handler);
-        // Reset the style for the next open
-        dialog.style.opacity = '';
-      },
-      { once: true }
-    );
-  }
   startNewGame() {
     this.game.active = true;
-    this.game.deck.shuffle();
+    this.game.over = false;
+    this.game.reset();
     this.player.hand.dealTwo(this.game.deck);
     this.dealer.hand.dealTwo(this.game.deck);
     this.player.hand.calculateScore();
@@ -57,6 +32,7 @@ export class GameComponent implements AfterViewInit {
       if (playerStatus === 'Playing') return;
       if (playerStatus === 'Won' || playerStatus === 'Lost') {
         this.game.active = false;
+        this.game.over = true;
         this.game.gameOverMessage = playerStatus;
       }
     }

@@ -8,6 +8,13 @@ export class Game {
     public dealer: Dealer,
     public player: Player,
     public active: boolean = false,
+    public over: boolean = false,
     public gameOverMessage: string = ''
   ) {}
+  reset() {
+    this.deck.shuffle();
+    for (let hand of [this.dealer.hand, this.player.hand]) {
+      hand.clear();
+    }
+  }
 }

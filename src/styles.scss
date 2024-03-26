@@ -1,41 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-  --btn-padding-x: 1.5rem;
-  --btn-padding-y: 1rem;
-}
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-button {
-  background: none;
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-
-.btn {
-  padding-right: var(--btn-padding-x);
-  padding-left: var(--btn-padding-x);
-  padding-top: var(--btn-padding-y);
-  padding-bottom: var(--btn-padding-y);
-  border-radius: 8px;
-  &-primary {
-    background-color: green;
-    color: white;
-  }
-
-  &-secondary {
-    background-color: red;
-    color: white;
-  }
-
-  &-tertiary {
-    background-color: teal;
-    color: white;
-  }
+body {
+  @apply bg-green-900;
 }
