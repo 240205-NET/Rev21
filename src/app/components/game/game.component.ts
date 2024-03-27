@@ -44,7 +44,20 @@ export class GameComponent {
     }
     return 'Playing';
   }
-  handlePlayerStand() {}
+
+  handlePlayerStand() {
+    while (this.dealer.hand.score < 17) {
+      this.dealer.hand.dealOne(this.game.deck);
+      this.dealer.hand.calculateDealerScore();
+    }
+    if (this.dealer.hand.score > this.player.hand.score) {
+      this.game.gameOverMessage = this.dealer.hand.score > 21 ? 'Won' : 'Lost';
+    } else {
+      this.game.gameOverMessage = 'Won';
+    }
+    this.game.active = false;
+    this.game.over = true;
+  }
 
   resetGameVariables() {
     //todo
